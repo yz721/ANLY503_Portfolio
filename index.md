@@ -17,7 +17,7 @@ We are also providing the transactions.csv data as well so you can build some vi
 ### Instructions & Tasks
 Use the data provided in the files above to create analysis and visualizations that answer the posed question or complete the task.
 
- 1. Explore all accounts. Create visualizations that combine or these account characteristics:
+1. Explore all accounts. Create visualizations that combine or these account characteristics:
 
  Whether an account has a credit card or not.
  
