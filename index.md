@@ -1,6 +1,6 @@
 # Welcome to My GitHub Pages
 
-Hi! This is Yunxi Zhang. Welcome to my ANLY 503 Portfolio!
+Hi! This is **Yunxi Zhang**. Welcome to my ANLY 503 Portfolio!
 
 Let me show you around! Click on the link to see my assignments and final project!
 
