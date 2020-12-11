@@ -74,4 +74,4 @@ Text
 
 [*Entrance*](https://yz721.github.io/Sissizhang/#project-introduction)
 
-# Have you found something interesting? Have FUN !!!
+# Have you found anything interesting? Have FUN !!!
