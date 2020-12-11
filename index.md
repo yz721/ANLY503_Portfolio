@@ -17,7 +17,7 @@ We are also providing the transactions.csv data as well so you can build some vi
 ### Instructions & Tasks
 Use the data provided in the files above to create analysis and visualizations that answer the posed question or complete the task.
 
-1. Explore all accounts. Create visualizations that combine or these account characteristics:
+ 1. Explore all accounts. Create visualizations that combine or these account characteristics:
 
  Whether an account has a credit card or not.
  
@@ -47,7 +47,7 @@ You are required to choose New York, Texas and two other states as the origin st
 
 3. You can now use this data frame to create a graph object using igraph (R or Python), tidygraph (R) or networkx (Python)
 
-4.You will create a single network graph, where the width of each edge representing the number of people moving between the two states, the color of the edge denoting the state of origin, and preferably arrows denoting the direction of migration. These aspects are required. You can style other aspects of the graph as you choose to improve readability.
+4. You will create a single network graph, where the width of each edge representing the number of people moving between the two states, the color of the edge denoting the state of origin, and preferably arrows denoting the direction of migration. These aspects are required. You can style other aspects of the graph as you choose to improve readability.
 
 5. Your submission will consist of one R Markdown file, named networks.Rmd and its corresponding HTML file networks.html, along with any files and folders created in the rendering process. 
 
