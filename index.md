@@ -17,29 +17,57 @@ We are also providing the transactions.csv data as well so you can build some vi
 ### Instructions & Tasks
 Use the data provided in the files above to create analysis and visualizations that answer the posed question or complete the task.
 
-Explore all accounts. Create visualizations that combine or these account characteristics:
+ 1. Explore all accounts. Create visualizations that combine or these account characteristics:
 
- 1.Whether an account has a credit card or not.
+ Whether an account has a credit card or not.
  
- 2.Whether an account has a loan or not.
+ Whether an account has a loan or not.
  
- 3.The average balance for the account.
+ The average balance for the account.[*Task1*](https://github.com/yz721/ANLY503_Portfolio/blob/gh-pages/task1.html)
  
- 4.What is the distribution of all loans and what are their characteristics?
+ 2.What is the distribution of all loans and what are their characteristics? [*Task2*](https://github.com/yz721/ANLY503_Portfolio/blob/gh-pages/task2.html)
  
- 5.Is there a relationship between a good or bad loan and the time between an account is opened an the loan is created? Is there a specific set of accounts that seem to be at higher or lower risk of defaulting?
+ 3.Is there a relationship between a good or bad loan and the time between an account is opened an the loan is created? Is there a specific set of accounts that seem to be at higher or lower risk of defaulting? [*Task3*](https://github.com/yz721/ANLY503_Portfolio/blob/gh-pages/task3.html)
  
- 6.For the account with the highest number of transactions, make a time series line plot for the behavior of the account over time, including all debits and credits, the different methods, and the with the different categories.
+ 4.For the account with the highest number of transactions, make a time series line plot for the behavior of the account over time, including all debits and credits, the different methods, and the with the different categories.[*Task4*](https://github.com/yz721/ANLY503_Portfolio/blob/gh-pages/task4.html)
  
- 7.Explore the validity of the data for the case whether or not an account has a credit card and whether or not they have associated credit card transactions. Is there anything worth noting?
- 
-[*Task1*](https://github.com/yz721/ANLY503_Portfolio/blob/gh-pages/task1.html)[*Task2*](https://github.com/yz721/ANLY503_Portfolio/blob/gh-pages/task2.html)[*Task3*](https://github.com/yz721/ANLY503_Portfolio/blob/gh-pages/task3.html)[*Task4*](https://github.com/yz721/ANLY503_Portfolio/blob/gh-pages/task4.html)[*Task5*](https://github.com/yz721/ANLY503_Portfolio/blob/gh-pages/task5.html)
+ 5.Explore the validity of the data for the case whether or not an account has a credit card and whether or not they have associated credit card transactions. Is there anything worth noting? [*Task5*](https://github.com/yz721/ANLY503_Portfolio/blob/gh-pages/task5.html)
+
+
+## Assignment 7
+###Introduction
+In this assignment you will visualize the flow of people between different states in the United States over the period of one year, using network graphs.
+
+You are required to choose New York, Texas and two other states as the origin states (where people lived the previous year) for this visualization, and show graphically the relative numbers of people that moved to the top 10 destination states (current state, in the data set) from each of the origin states. You are expected to create a single graphic for this project. For clarity, for each origin state, you will find the top 10 states that people moved to from that state in the year in question, and the union of those states will be represented as nodes in the graph. You will not consider migrations to other countries or US Territories (Puerto Rico, Guam and others), but only consider migrations to the 50 states and District of Columbia.
+
+###Tasks
+1. You have to extract the data from this Excel file programmatically, i.e., using R and/or Python, not just copy it by hand to another Excel file. For this, you will have to open and understand the structure and format of the data in the file.
+
+2. You will need to extract the data in the form of a data frame with 3 columns: source, target and count; the last column will contain the numbers of people who migrated from the source state to the target state in 2018
+
+3. You can now use this data frame to create a graph object using igraph (R or Python), tidygraph (R) or networkx (Python)
+
+4.You will create a single network graph, where the width of each edge representing the number of people moving between the two states, the color of the edge denoting the state of origin, and preferably arrows denoting the direction of migration. These aspects are required. You can style other aspects of the graph as you choose to improve readability.
+
+5. Your submission will consist of one R Markdown file, named networks.Rmd and its corresponding HTML file networks.html, along with any files and folders created in the rendering process. 
+
+[*Network Link*](https://github.com/yz721/ANLY503_Portfolio/blob/gh-pages/Networks.html)
+
 
 
 
 ## Final Project
 This is Final project is the visulizations of NYC Restaurant Reviews in 2018.
 Check to see which restaurant attracts you the most.
+
+Visualizations contain each of the following types:
+
+Exploratory
+Geographical
+Graph/Network
+Time Series
+Text
+
 [**Entrance**](https://yz721.github.io/YunxiZhang.github.io/#geo)
 
 # Have you found something interesting? Have FUN !!!
