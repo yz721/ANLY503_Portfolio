@@ -19,11 +19,11 @@ Use the data provided in the files above to create analysis and visualizations t
 
  1. Explore all accounts. Create visualizations that combine or these account characteristics:
 
- Whether an account has a credit card or not.
+    Whether an account has a credit card or not.
  
- Whether an account has a loan or not.
+    Whether an account has a loan or not.
  
- The average balance for the account.[*Task1*](https://github.com/yz721/ANLY503_Portfolio/blob/gh-pages/task1.html)
+    The average balance for the account.[*Task1*](https://github.com/yz721/ANLY503_Portfolio/blob/gh-pages/task1.html)
  
  2. What is the distribution of all loans and what are their characteristics? [*Task2*](https://github.com/yz721/ANLY503_Portfolio/blob/gh-pages/task2.html)
  
@@ -63,9 +63,13 @@ Check to see which restaurant attracts you the most.
 Visualizations contain each of the following types:
 
 Exploratory
+
 Geographical
+
 Graph/Network
+
 Time Series
+
 Text
 
 [*Entrance*](https://yz721.github.io/YunxiZhang.github.io/#geo)
