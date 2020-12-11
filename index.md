@@ -42,4 +42,4 @@ This is Final project is the visulizations of NYC Restaurant Reviews in 2018.
 Check to see which restaurant attracts you the most.
 [**Entrance**](https://yz721.github.io/YunxiZhang.github.io/#geo)
 
-#Have you found something interesting? Have FUN !!!
+# Have you found something interesting? Have FUN !!!
