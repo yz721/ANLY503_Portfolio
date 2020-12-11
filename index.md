@@ -25,13 +25,13 @@ Use the data provided in the files above to create analysis and visualizations t
  
  The average balance for the account.[*Task1*](https://github.com/yz721/ANLY503_Portfolio/blob/gh-pages/task1.html)
  
- 2.What is the distribution of all loans and what are their characteristics? [*Task2*](https://github.com/yz721/ANLY503_Portfolio/blob/gh-pages/task2.html)
+ 2. What is the distribution of all loans and what are their characteristics? [*Task2*](https://github.com/yz721/ANLY503_Portfolio/blob/gh-pages/task2.html)
  
- 3.Is there a relationship between a good or bad loan and the time between an account is opened an the loan is created? Is there a specific set of accounts that seem to be at higher or lower risk of defaulting? [*Task3*](https://github.com/yz721/ANLY503_Portfolio/blob/gh-pages/task3.html)
+ 3. Is there a relationship between a good or bad loan and the time between an account is opened an the loan is created? Is there a specific set of accounts that seem to be at higher or lower risk of defaulting? [*Task3*](https://github.com/yz721/ANLY503_Portfolio/blob/gh-pages/task3.html)
  
- 4.For the account with the highest number of transactions, make a time series line plot for the behavior of the account over time, including all debits and credits, the different methods, and the with the different categories.[*Task4*](https://github.com/yz721/ANLY503_Portfolio/blob/gh-pages/task4.html)
+ 4. For the account with the highest number of transactions, make a time series line plot for the behavior of the account over time, including all debits and credits, the different methods, and the with the different categories.[*Task4*](https://github.com/yz721/ANLY503_Portfolio/blob/gh-pages/task4.html)
  
- 5.Explore the validity of the data for the case whether or not an account has a credit card and whether or not they have associated credit card transactions. Is there anything worth noting? [*Task5*](https://github.com/yz721/ANLY503_Portfolio/blob/gh-pages/task5.html)
+ 5. Explore the validity of the data for the case whether or not an account has a credit card and whether or not they have associated credit card transactions. Is there anything worth noting? [*Task5*](https://github.com/yz721/ANLY503_Portfolio/blob/gh-pages/task5.html)
 
 
 ## Assignment 7
