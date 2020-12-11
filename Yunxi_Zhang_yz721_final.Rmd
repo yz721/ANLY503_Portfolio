@@ -1,0 +1,460 @@
+---
+title: "503 Final Project——Yunxi Zhang"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+```
+
+```{r}
+restaurant=read.csv("restaurant_week_2018_final.csv")
+```
+
+```{r}
+library(ggplot2)
+library(ggmap)
+library(scales)
+library(tidyverse)
+library(knitr)
+library(ggthemes)
+library(wesanderson)
+library(stringr)
+library(fmsb)
+library(reshape2)
+```
+
+
+Geo {data-orientation=rows}
+=====================================   
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+
+
+### Location of Each Restaurant
+
+```{r}
+library(leaflet)
+library(sp)
+library(mapproj)
+library(maps)
+library(mapdata)
+library(maptools)
+library(htmlwidgets)
+library(magrittr)
+library(XML)
+library(rgdal)
+library(WDI)
+library(stringr)
+library(rgeos)
+library(scales)
+library(maps)
+
+popup_r <- paste0("<strong>Restaurant Name: </strong>", 
+                   restaurant$name, 
+                  "<br><strong>Address: </strong>", 
+                   restaurant$street_address,
+                  "<br><strong>Phone Number: </strong>", 
+                   restaurant$phone, 
+                   "<br><strong>Website Link: </strong>", 
+                   restaurant$website)
+
+gmap=leaflet() %>%
+  addTiles() %>%
+  addAwesomeMarkers(lng=restaurant$longitude,lat=restaurant$latitude, popup=popup_r,clusterOptions = markerClusterOptions(freezeAtZoom =15) )
+
+gmap
+
+saveWidget(gmap, 'NYC_restaurant.html', selfcontained = TRUE)
+```
+
+
+
+
+EDA {vertical_layout=fill}
+=====================================  
+
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Barplot
+
+```{r}
+library(dplyr)
+```
+
+
+```{r}
+hist1<-restaurant %>% group_by(price_range,restaurant_main_type) %>% summarise(star1=sum(star_1),star2=sum(star_2),star3=sum(star_3),star4=sum(star_4),star5=sum(star_5))
+
+hist2<-melt(hist1,id.vars=c("price_range","restaurant_main_type"),variable.name="star",value.name="Reviews")
+
+hist21<-filter(hist2, price_range=="$30 and under")
+
+hist3<-ggplot(data = hist2, mapping = aes(x = restaurant_main_type, y = Reviews, fill = star)) + geom_bar(stat = 'identity', position = 'stack') +
+  theme_fivethirtyeight()+facet_grid(.~price_range)+
+  theme(axis.text.x = element_text(angle = 45,vjust = 0.5,size=5))+theme(legend.title = element_blank())+
+  labs(x="Type",y="Review Count")+theme(legend.title = element_blank())+
+  ggtitle("Review Components of Different Star Level")
+
+hist3
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Lollipop
+
+```{r}
+#Lollipop
+review=restaurant$average_review
+ave_re=mean(review)
+
+lolli_review=aggregate(average_review~restaurant_main_type,data=restaurant,FUN=mean)
+
+# Change baseline
+lollipop1=ggplot(lolli_review, aes(x=restaurant_main_type, y=average_review)) +
+  geom_hline(yintercept=ave_re,color="dark blue")+
+  geom_segment( aes(x=restaurant_main_type, xend=restaurant_main_type, y=ave_re, yend=average_review), color="dark grey") +
+  geom_point( size=2, color="red", fill=alpha("orange", 0.3), alpha=0.7, shape=21, stroke=2) +
+  theme_light() +
+  theme(axis.text.x = element_text(angle = 45,vjust = 0.5),plot.title=element_text(size=15,face="bold",hjust=0.5),
+    panel.grid.major.x = element_blank(),
+    panel.border = element_blank(),
+    axis.ticks.x = element_blank()
+  ) +labs(x="Type",y="Review",title="Average Review for Each Restaurant Type")
+  
+  
+lollipop1
+
+```
+
+-----------------------------------------------------------------------
+
+
+### Radar
+
+```{r}
+#Radar
+food=restaurant %>% group_by(price_range) %>% summarise(mean(food_review))
+service=restaurant %>% group_by(price_range) %>% summarise(mean(service_review))
+ambience=restaurant %>% group_by(price_range) %>% summarise(mean(ambience_review))
+value=restaurant %>% group_by(price_range) %>% summarise(mean(value_review))
+
+radar_review=cbind(value[,2],service[,2],ambience[,2],food[,2])
+colnames(radar_review)=c("value","service","ambience","food")
+rownames(radar_review)=c("$30 and under","$31 to $50","$50 and over")
+
+radar_review2=rbind(radar_review[3,],radar_review[2,],radar_review[1,])
+
+radar_review1 <- rbind(rep(4.70,4) , rep(3.90,4) , radar_review2)
+
+colors_border=c( rgb(65/255,115/255,225/255,0.9), rgb(1,128/255,0,0.9) , rgb(1,1,0,0.9) )
+colors_in=c( rgb(65/255,115/255,225/255,0.4), rgb(1,128/255,0,0.4) , rgb(1,1,0,0.4) )
+
+
+radarchart( radar_review1, axistype=1 , 
+            
+            pcol=colors_border , pfcol=colors_in , plwd=2 , plty=1,
+            
+            cglcol="black", cglty=4 ,axislabcol="black", caxislabels=c(3.90,4.10,4.30,4.50,4.70), cglwd=0.7,
+            
+            vlcex=1, title=paste("Review Scores for Different Price Range Restaurant"))
+
+legend(x=1, y=1, legend = rownames(radar_review1[-c(1,2),]), bty = "n", pch=20 , col=colors_in,text.col = "black", cex=1, pt.cex=3)
+```
+
+
+Text  {data-orientation=columns}
+=====================================     
+
+
+
+Row {data-height=300}
+-------------------------------------
+
+### What are the most frequent words in the description of Chinese restaurant
+
+```{r}
+text1=restaurant[restaurant$restaurant_main_type=="Chinese",]$description
+
+library(shiny)
+library(wordcloud)
+library(fmsb)
+library(wordcloud2)
+library(RColorBrewer)
+library(devtools)
+library(dplyr)
+library(tm)
+
+txt = text1[text1!=""]
+txt = tolower(txt)
+txtList = lapply(txt, strsplit," ")
+txtChar = unlist(txtList)
+txtChar = gsub("\\.|,|\\!|:|;|\\?","",txtChar) #clean symbol(.,!:;?)
+txtChar = txtChar[txtChar!=""]
+data = as.data.frame(table(txtChar))
+colnames(data) = c("Word","freq")
+ordFreq = data[order(data$freq,decreasing=T),]
+
+filePath = "/Users/yunxizhang/Desktop/anly 503/project/meaningless.csv" 
+df = read.csv(filePath,header = T)
+Word = df$Word
+antiWord = data.frame(Word,stringsAsFactors=F)
+result = anti_join(ordFreq,antiWord,by="Word") %>% arrange(desc(freq))
+w=rep(result$Word,result$freq)
+w=as.vector(w)
+
+set.seed(123)
+wordcloud(words=w,min.freq = 1,max.words = 200,random.order = FALSE,rot.per = 0.35,colors=brewer.pal(8,"Dark2"))
+
+```
+
+Row {data-height=300}
+-------------------------------------
+
+### What are the most frequent words in the description of Korean.Japanese restaurant
+
+```{r}
+text2=restaurant[restaurant$restaurant_main_type=="Japanese & Koren",]$description
+
+txt = text2[text2!=""]
+txt = tolower(txt)
+txtList = lapply(txt, strsplit," ")
+txtChar = unlist(txtList)
+txtChar = gsub("\\.|,|\\!|:|;|\\?","",txtChar) #clean symbol(.,!:;?)
+txtChar = txtChar[txtChar!=""]
+data = as.data.frame(table(txtChar))
+colnames(data) = c("Word","freq")
+ordFreq = data[order(data$freq,decreasing=T),]
+
+filePath = "/Users/yunxizhang/Desktop/anly 503/project/meaningless.csv" 
+df = read.csv(filePath,header = T)
+Word = df$Word
+antiWord = data.frame(Word,stringsAsFactors=F)
+result = anti_join(ordFreq,antiWord,by="Word") %>% arrange(desc(freq))
+w=rep(result$Word,result$freq)
+w=as.vector(w)
+
+set.seed(123)
+wordcloud(words=w,min.freq = 1,max.words = 200,random.order = FALSE,rot.per = 0.35,colors=brewer.pal(8,"Blues"))
+
+```
+
+Row {data-height=600}
+-------------------------------------
+
+### What are the most frequent words in the description of French restaurant
+
+```{r}
+text3=restaurant[restaurant$restaurant_main_type=="French",]$description
+
+
+txt = text3[text3!=""]
+txt = tolower(txt)
+txtList = lapply(txt, strsplit," ")
+txtChar = unlist(txtList)
+txtChar = gsub("\\.|,|\\!|:|;|\\?","",txtChar) #clean symbol(.,!:;?)
+txtChar = txtChar[txtChar!=""]
+data = as.data.frame(table(txtChar))
+colnames(data) = c("Word","freq")
+ordFreq = data[order(data$freq,decreasing=T),]
+
+filePath = "/Users/yunxizhang/Desktop/anly 503/project/meaningless.csv" 
+df = read.csv(filePath,header = T)
+Word = df$Word
+antiWord = data.frame(Word,stringsAsFactors=F)
+result = anti_join(ordFreq,antiWord,by="Word") %>% arrange(desc(freq))
+w=rep(result$Word,result$freq)
+w=as.vector(w)
+
+set.seed(123)
+wordcloud(words=w,min.freq = 1,max.words = 200,random.order = FALSE,rot.per = 0.35,colors=brewer.pal(3,"Reds"))
+
+```
+
+
+Time Series
+=====================================     
+
+
+
+Row {data-height=300}
+-------------------------------------
+
+### TS of Review Counts
+
+```{r}
+inspection=read_csv("DOHMH_New_York_City_Restaurant_Inspection_Results.csv")
+ins=na.omit(inspection)
+
+date=ins$`INSPECTION DATE`
+name=ins$DBA
+
+month=substr(date,1,2)
+year=substr(date,7,10)
+
+df=data.frame(cbind(name,month,year))
+df=df[df$year>=2016,]
+
+df=df[with(df,order(year,month)),]
+
+tdf=table(df[,2:3])
+tdf=as.vector(tdf)
+
+time_inspe=ts(tdf,frequency = 12, start=c(2016,01))
+plot(time_inspe,col="blue",main="Time Series of counts of inspections")
+```
+
+
+Network
+=====================================     
+
+
+
+Row {data-height=300}
+-------------------------------------
+
+### Network Analysis of Restaurant types within the same postal code
+
+```{r}
+r2=unique(restaurant$restaurant_main_type)
+
+#Italian
+df.italian=data.frame(r1=c(rep("Italian",17)),r2,count=0)
+
+
+res.it=restaurant[restaurant$restaurant_main_type=="Italian",]
+post.it=sort(unique(res.it$postal_code))
+
+
+
+for (j in 1:length(post.it)){
+res1=restaurant[restaurant$postal_code==post.it[j],]
+t.res1=table(res1$restaurant_main_type)
+t.res1=as.matrix(t.res1)
+name1=rownames(t.res1)
+
+for (i in 1:length(name1)){
+df.italian[which(df.italian$r2==name1[i]),]$count=df.italian[which(df.italian$r2==name1[i]),]$count+t.res1[which(rownames(t.res1)=="Italian"),]*t.res1[2]}
+}
+
+
+
+#Japanese and Korean
+df.jk=data.frame(r1=c(rep("Japanese & Koren",17)),r2,count=0)
+
+
+res.jk=restaurant[restaurant$restaurant_main_type=="Japanese & Koren",]
+post.jk=sort(unique(res.jk$postal_code))
+
+
+for (j in 1:length(post.jk)){
+res1=restaurant[restaurant$postal_code==post.jk[j],]
+t.res1=table(res1$restaurant_main_type)
+t.res1=as.matrix(t.res1)
+name1=rownames(t.res1)
+
+for (i in 1:length(name1)){
+df.jk[which(df.jk$r2==name1[i]),]$count=df.jk[which(df.jk$r2==name1[i]),]$count+t.res1[which(rownames(t.res1)=="Japanese & Koren"),]*t.res1[2]}
+}
+
+
+#Steakhouse
+df.sh=data.frame(r1=c(rep("Steakhouse",17)),r2,count=0)
+
+
+res.sh=restaurant[restaurant$restaurant_main_type=="Steakhouse",]
+post.sh=sort(unique(res.sh$postal_code))
+
+
+for (j in 1:length(post.sh)){
+res1=restaurant[restaurant$postal_code==post.sh[j],]
+t.res1=table(res1$restaurant_main_type)
+t.res1=as.matrix(t.res1)
+name1=rownames(t.res1)
+
+for (i in 1:length(name1)){
+df.sh[which(df.sh$r2==name1[i]),]$count=df.sh[which(df.sh$r2==name1[i]),]$count+t.res1[which(rownames(t.res1)=="Steakhouse"),]*t.res1[2]}
+}
+
+
+df.nw=rbind(df.italian[-4,],df.jk[-c(4,12),],df.sh[-c(4,7,12),])
+
+
+library(igraph)
+library(tidygraph)
+library(tidyr)
+library(circlize)
+
+net <- graph_from_data_frame(d = df.nw, vertices = unique(c(df.nw$r1, df.nw$r2)), directed = T)
+
+
+chordDiagram(df.nw, annotationTrack = "grid", preAllocateTracks = list(track.height = 0.1))
+  circos.trackPlotRegion(track.index = 1, panel.fun = function(x, y) {
+  col = rand_color(52,luminosity = "bright")
+  xlim = get.cell.meta.data("xlim")
+  xplot = get.cell.meta.data("xplot")
+  ylim = get.cell.meta.data("ylim")
+  sector.name = get.cell.meta.data("sector.index")
+  circos.text(mean(xlim), ylim[1], sector.name, facing = "clockwise",
+                niceFacing = TRUE, adj = c(0, 0.8), cex = 0.3)
+}, bg.border = NA)
+ 
+title("Restaurnt Nearby Type",cex = 0.5)
+```
+
+
+
+Project Introduction
+=====================================     
+
+
+
+Row {data-height=300}
+-------------------------------------
+
+### Introduction & Data Source
+NYC restaurant week holds twice a year. During the time period, the price is only $26$ on Lunch and $42$ on Dinner with specially-offered two-course & three-course at participating restaurants.
+
+In this dataset of 2018, I will present the visualizations to show the relationships between reviews, price range, and locations.
+
+[_**Data Source**_](https://www.kaggle.com/popoandrew/restaurant-week-2018-in-nyc)
+
+1. *Geospatial*
+
+Geospatial graph here shows the location of restaurant. When click the clustering or the individual target, more information of restaurant will show. The information includes the name, website, phone number and address.
+
+2. *Barplots*
+
+Focuses on the percentage of counts of different five star levels. Three barplots are divided by price range, which shows no impact on the percentage of star
+
+3. *Lollipop*
+
+The graph focuses on the average review scores of different restaurant type. Japanese and Korean foods have the highest score, while Chinese get the lowest.
+Scores which are higher than the average of all types will be head up, otherwise will be head down.
+
+4. *Radarplot*
+
+The radarplot wants to find out if the price range will affect the review score of four types. The results show that lower price range will result in lower score.
+
+5. *Text graphs*
+
+I picked three types: Chinese, Japanese and Korean and French.
+I evaluate the frequency of all words in description to find out the words to represent the restaurant type.
+
+6. *Network*
+
+I picked Italian, Japanese and Korean and Steakhouse to focus on the most likely types of restaurant nearby, within the same postal codes.
+
+7. *Time Series*
+
+Time Series Data Source comes from NYC Open Data, which focuses on the inspections situations of each restaurant.
+
+[_**Time Series Data Source**_](https://data.cityofnewyork.us/Health/DOHMH-New-York-City-Restaurant-Inspection-Results/43nn-pn8j)
