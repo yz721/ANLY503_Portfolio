@@ -1,38 +1,45 @@
-## Welcome to GitHub Pages
+# Welcome to My GitHub Pages
 
-You can use the [editor on GitHub](https://github.com/yz721/ANLY503_Portfolio/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+Hi! This is Yunxi Zhang. Welcome to my ANLY 503 Portfolio!
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# ANLY 503
-## Assignment
-### A7
+Let me show you around! Click on the link to see my assignments and final project!
 
 
-- Bulleted
-- List
+## Assignment 5
+### Static Visualization Assignment
+### Introduction & Data
+In the previous assignment, you started working with the raw data dumps from the bank's systems, you tidied (is that even a verb?!?) some datasets, and you created an analytical dataset. An analytical dataset may be tidy or not -there is somewhat of a gray area there- however, it is a dataset that can be used for both data visualization and modeling.
 
-1. Numbered
-2. List
+We are providing an extended analytical dataset, with one record per account and many different variables/measurements/features for each account.
 
-**Bold** and _Italic_ and `Code` text
+We are also providing the transactions.csv data as well so you can build some visualizations from the raw data.
 
-[Link](url) and ![Image](src)
-```
+### Instructions & Tasks
+Use the data provided in the files above to create analysis and visualizations that answer the posed question or complete the task.
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+Explore all accounts. Create visualizations that combine or these account characteristics:
 
-### Jekyll Themes
+ 1.Whether an account has a credit card or not.
+ 
+ 2.Whether an account has a loan or not.
+ 
+ 3.The average balance for the account.
+ 
+ 4.What is the distribution of all loans and what are their characteristics?
+ 
+ 5.Is there a relationship between a good or bad loan and the time between an account is opened an the loan is created? Is there a specific set of accounts that seem to be at higher or lower risk of defaulting?
+ 
+ 6.For the account with the highest number of transactions, make a time series line plot for the behavior of the account over time, including all debits and credits, the different methods, and the with the different categories.
+ 
+ 7.Explore the validity of the data for the case whether or not an account has a credit card and whether or not they have associated credit card transactions. Is there anything worth noting?
+ 
+[**Click here to have a look**](https://github.com/yz721/ANLY503_Portfolio)
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/yz721/ANLY503_Portfolio/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
 
-### Support or Contact
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+## Final Project
+This is Final project is the visulizations of NYC Restaurant Reviews in 2018.
+Check to see which restaurant attracts you the most.
+[**Entrance**](https://yz721.github.io/YunxiZhang.github.io/#geo)
+
+#Have you found something interesting? Have FUN !!!
