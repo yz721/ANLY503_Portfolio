@@ -33,7 +33,7 @@ Explore all accounts. Create visualizations that combine or these account charac
  
  7.Explore the validity of the data for the case whether or not an account has a credit card and whether or not they have associated credit card transactions. Is there anything worth noting?
  
-[**Click here to have a look**](https://github.com/yz721/ANLY503_Portfolio)
+[*Task1*](https://github.com/yz721/ANLY503_Portfolio/blob/gh-pages/task1.html)[*Task2*](https://github.com/yz721/ANLY503_Portfolio/blob/gh-pages/task2.html)[*Task3*](https://github.com/yz721/ANLY503_Portfolio/blob/gh-pages/task3.html)[*Task4*](https://github.com/yz721/ANLY503_Portfolio/blob/gh-pages/task4.html)[*Task5*](https://github.com/yz721/ANLY503_Portfolio/blob/gh-pages/task5.html)
 
 
 
