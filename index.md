@@ -35,12 +35,12 @@ Use the data provided in the files above to create analysis and visualizations t
 
 
 ## Assignment 7
-###Introduction
+### Introduction
 In this assignment you will visualize the flow of people between different states in the United States over the period of one year, using network graphs.
 
 You are required to choose New York, Texas and two other states as the origin states (where people lived the previous year) for this visualization, and show graphically the relative numbers of people that moved to the top 10 destination states (current state, in the data set) from each of the origin states. You are expected to create a single graphic for this project. For clarity, for each origin state, you will find the top 10 states that people moved to from that state in the year in question, and the union of those states will be represented as nodes in the graph. You will not consider migrations to other countries or US Territories (Puerto Rico, Guam and others), but only consider migrations to the 50 states and District of Columbia.
 
-###Tasks
+### Tasks
 1. You have to extract the data from this Excel file programmatically, i.e., using R and/or Python, not just copy it by hand to another Excel file. For this, you will have to open and understand the structure and format of the data in the file.
 
 2. You will need to extract the data in the form of a data frame with 3 columns: source, target and count; the last column will contain the numbers of people who migrated from the source state to the target state in 2018
@@ -68,6 +68,6 @@ Graph/Network
 Time Series
 Text
 
-[**Entrance**](https://yz721.github.io/YunxiZhang.github.io/#geo)
+[*Entrance*](https://yz721.github.io/YunxiZhang.github.io/#geo)
 
 # Have you found something interesting? Have FUN !!!
